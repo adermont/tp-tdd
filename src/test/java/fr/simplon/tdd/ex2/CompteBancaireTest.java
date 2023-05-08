@@ -31,4 +31,19 @@ class CompteBancaireTest
             Assertions.assertEquals(solde, new CompteBancaire(solde).getSolde());
         }
     }
+
+    /**
+     * Test 3: On peut déposer de l'argent liquide sur un compte ; le nouveau solde après dépôt est égal au solde avant
+     * dépôt + la somme déposée.
+     */
+    @Test
+    public void testDepot()
+    {
+        int soldeInitial = 50;
+        int depot = 10;
+        int soldeFinal = soldeInitial + depot;
+        CompteBancaire compte = new CompteBancaire(50);
+        compte.deposer(depot);
+        Assertions.assertEquals(soldeFinal, compte.getSolde());
+    }
 }
