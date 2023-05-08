@@ -42,8 +42,33 @@ class CompteBancaireTest
         int soldeInitial = 50;
         int depot = 10;
         int soldeFinal = soldeInitial + depot;
-        CompteBancaire compte = new CompteBancaire(50);
+        CompteBancaire compte = new CompteBancaire(soldeInitial);
         compte.deposer(depot);
         Assertions.assertEquals(soldeFinal, compte.getSolde());
     }
+
+    /**
+     * Test 4: On peut retirer de l'argent d'un compte (cas où le compte est suffisamment approvisionné).
+     */
+    @Test
+    public void testRetraitAutorise()
+    {
+        int soldeInitial = Integer.MAX_VALUE;
+        int retrait = Integer.MAX_VALUE;
+        int soldeApresRetraitAutorise = soldeInitial - retrait;
+        CompteBancaire compte = new CompteBancaire(soldeInitial);
+        compte.retirer(retrait);
+        Assertions.assertEquals(soldeApresRetraitAutorise, compte.getSolde());
+    }
+
+    /**
+     * Test 4: On peut retirer de l'argent d'un compte (cas où les fonds sont insuffisants).
+     */
+    @Test
+    public void testRetraitNonAutorise()
+    {
+        CompteBancaire compte = new CompteBancaire(new Random().nextInt(1,Integer.MAX_VALUE));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> compte.retirer(compte.getSolde() + 1));
+    }
+
 }
