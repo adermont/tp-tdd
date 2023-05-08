@@ -39,4 +39,18 @@ public class CompteBancaire
         }
         mSolde -= pRetrait;
     }
+
+    public void transferer(CompteBancaire pDestination, int pMontant)
+    {
+        retirer(pMontant);
+        try
+        {
+            pDestination.deposer(pMontant);
+        }
+        catch (Exception e)
+        {
+            // En cas de problème on remet les fonds à leur place !
+            deposer(pMontant);
+        }
+    }
 }
