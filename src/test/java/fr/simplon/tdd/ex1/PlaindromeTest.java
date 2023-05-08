@@ -16,4 +16,16 @@ public class PlaindromeTest
         Palindrome palindrome = new Palindrome();
         Assertions.assertFalse(palindrome.isPalindrome("hello"));
     }
+
+    @Test
+    public void testIsPalindromeEmptyString(){
+        Palindrome palindrome = new Palindrome();
+        Assertions.assertTrue(palindrome.isPalindrome(""));
+    }
+
+    @Test
+    public void testIsPalindromeOneLetterWord(){
+        Palindrome palindrome = new Palindrome();
+        Assertions.assertTrue(palindrome.isPalindrome("r"));
+    }
 }
