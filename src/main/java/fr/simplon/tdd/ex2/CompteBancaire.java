@@ -17,4 +17,12 @@ public class CompteBancaire
     {
         return mSolde;
     }
+
+    public void deposer(int pDepot)
+    {
+        if ( pDepot < 0 ){
+            throw  new IllegalArgumentException("Un dépôt doit obligatoirement être positif ou nul");
+        }
+        mSolde += pDepot;
+    }
 }
