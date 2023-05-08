@@ -10,4 +10,10 @@ public class PlaindromeTest
         Palindrome palindrome = new Palindrome();
         Assertions.assertTrue(palindrome.isPalindrome("radar"));
     }
+
+    @Test
+    public void testIsNotPalindrome(){
+        Palindrome palindrome = new Palindrome();
+        Assertions.assertFalse(palindrome.isPalindrome("hello"));
+    }
 }
