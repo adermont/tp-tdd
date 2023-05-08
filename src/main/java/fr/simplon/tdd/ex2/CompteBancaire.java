@@ -20,9 +20,23 @@ public class CompteBancaire
 
     public void deposer(int pDepot)
     {
-        if ( pDepot < 0 ){
-            throw  new IllegalArgumentException("Un dépôt doit obligatoirement être positif ou nul");
+        if (pDepot < 0)
+        {
+            throw new IllegalArgumentException("Un dépôt doit obligatoirement être positif ou nul");
         }
         mSolde += pDepot;
+    }
+
+    public void retirer(int pRetrait)
+    {
+        if (pRetrait < 0)
+        {
+            throw new IllegalArgumentException("Un retrait doit être positif ou nul");
+        }
+        if (mSolde - pRetrait < 0)
+        {
+            throw new IllegalArgumentException("Solde insuffisant");
+        }
+        mSolde -= pRetrait;
     }
 }
