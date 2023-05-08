@@ -67,8 +67,53 @@ class CompteBancaireTest
     @Test
     public void testRetraitNonAutorise()
     {
-        CompteBancaire compte = new CompteBancaire(new Random().nextInt(1,Integer.MAX_VALUE));
+        CompteBancaire compte = new CompteBancaire(new Random().nextInt(1, Integer.MAX_VALUE));
         Assertions.assertThrows(IllegalArgumentException.class, () -> compte.retirer(compte.getSolde() + 1));
+    }
+
+    /**
+     * Test 5: On peut transférer une somme d'un compte à un autre. Dans ce cas le compte de départ est débité de la
+     * somme à transférer et le compte d'arrivée est crédité de la somme transférée moins 0,05% de la somme transférée
+     * (frais bancaires).
+     */
+    @Test
+    public void testTransfertAutorise()
+    {
+        CompteBancaire compteDepart = new CompteBancaire(100);
+        CompteBancaire compteArrivee = new CompteBancaire(100);
+        int soldeCompteDepartAvantTransfert = compteDepart.getSolde();
+        int soldeCompteArriveeAvantTransfert = compteArrivee.getSolde();
+        int montant = 1;
+        int soldeCompteDepartApresTransfert = soldeCompteDepartAvantTransfert - montant;
+        int soldeCompteArriveeApresTransfert = soldeCompteArriveeAvantTransfert + montant;
+
+        compteDepart.transferer(compteArrivee, montant);
+        Assertions.assertEquals(soldeCompteDepartApresTransfert, compteDepart.getSolde());
+        Assertions.assertEquals(soldeCompteArriveeApresTransfert, compteArrivee.getSolde());
+    }
+
+    /**
+     * Test 5: cas non autorisé si les fonds sont insuffisants.
+     */
+    @Test
+    public void testTransfertNonAutoriseSiFondsInsuffisants()
+    {
+        CompteBancaire compteDepart = new CompteBancaire(1);
+        CompteBancaire compteArrivee = new CompteBancaire(100);
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> compteDepart.transferer(compteArrivee, compteDepart.getSolde()+1));
+    }
+
+    /**
+     * Test 5: cas non autorisé si le montant transféré est négatif.
+     */
+    @Test
+    public void testTransfertNonAutoriseSiMontantNegatif()
+    {
+        CompteBancaire compteDepart = new CompteBancaire(1);
+        CompteBancaire compteArrivee = new CompteBancaire(100);
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> compteDepart.transferer(compteArrivee, -1));
     }
 
 }
