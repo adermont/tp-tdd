@@ -19,6 +19,9 @@ public class Fournisseur
 
     public int commander(int pQuantite)
     {
+        if ( pQuantite < 0){
+            throw new IllegalArgumentException("On ne peut pas commander une quantité négative");
+        }
         return pQuantite;
     }
 }

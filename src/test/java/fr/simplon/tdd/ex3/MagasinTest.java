@@ -72,6 +72,7 @@ public class MagasinTest
         {
             int quantite = new Random().nextInt(1, Integer.MAX_VALUE);
             Assertions.assertEquals(quantite, new Fournisseur("Playstation").commander(quantite));
+            Assertions.assertThrows(IllegalArgumentException.class, () -> new Fournisseur("Playstation").commander(quantite*-1));
         }
     }
 
@@ -161,14 +162,15 @@ public class MagasinTest
 
     /**
      * La classe Magasin permet de connaître le prix des produits. La formule utilisée pour calculer le prix est proche
-     *  d'une formule-type "SNCF":
-     *  <pre>
+     * d'une formule-type "SNCF":
+     * <pre>
      *  prixFinal = prixDeBase x quantiteMax / quantiteDisponible
      *  </pre>
-     *  Par exemple si stockMax=500, stockCourant=100, prixDeBase=50€, alors: prixFinal = 50 * 500 / 100 = 250€
+     * Par exemple si stockMax=500, stockCourant=100, prixDeBase=50€, alors: prixFinal = 50 * 500 / 100 = 250€
      */
     @Test
-    public void testPrixVariablesSelonStockDisponible(){
+    public void testPrixVariablesSelonStockDisponible()
+    {
         String nomProduits = "Playstation";
         int prixDeBase = 350;
         int stockMax = 100;
@@ -181,7 +183,8 @@ public class MagasinTest
      * produits achetés. Bien sûr, on ne peut pas acheter plus que la quantité de produits disponibles en stock.
      */
     @Test
-    public void testAchatDiminueQuantiteDisponible(){
+    public void testAchatDiminueQuantiteDisponible()
+    {
         String nomProduits = "Playstation";
         int prixDeBase = 350;
         int stockMax = 100;

@@ -73,6 +73,7 @@ public class MagasinTest
         {
             int quantite = new Random().nextInt(1, Integer.MAX_VALUE);
             Assertions.assertEquals(quantite, new Fournisseur("Playstation").commander(quantite));
+            Assertions.assertThrows(IllegalArgumentException.class, () -> new fr.simplon.tdd.ex3.Fournisseur("Playstation").commander(quantite*-1));
         }
     }
 
